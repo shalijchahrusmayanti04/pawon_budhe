@@ -10,6 +10,9 @@ class Home extends CI_Controller
 
   public function index()
   {
-    $this->load->view('tes');
+    $data = [
+      'judul' => "Selamat Datang",
+    ];
+    $this->template->load('Template/Template_Home', 'Home/Home', $data);
   }
 }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title><?= $judul; ?></title>
   <!-- font-google -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- font-awesome -->
@@ -32,6 +32,10 @@
       </form>
     </div>
   </nav>
+
+  <div class="container mt-3">
+    <?= $content; ?>
+  </div>
 
   <!-- bootstrap js -->
   <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
