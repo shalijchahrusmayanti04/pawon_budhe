@@ -86,7 +86,7 @@
         <img src="<?= base_url('assets/img/logo.jpeg'); ?>" style="border-radius: 50%; width: 50px;">
       </a>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Cari...">
+        <input class="form-control me-2" type="search" placeholder="Cari..." onkeyup="cari(this.value)">
       </form>
     </div>
   </nav>

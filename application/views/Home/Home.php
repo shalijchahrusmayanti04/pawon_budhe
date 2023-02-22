@@ -1,8 +1,4 @@
-<style>
-  #btnpesan1.hover {}
-</style>
-
-<div class="row justify-content-center" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
+<div class="row justify-content-center" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" id="body-card">
   <?php $no = 1;
   foreach ($menu as $m) : ?>
     <div class="col-3 mb-3">
@@ -21,3 +17,16 @@
   <?php $no++;
   endforeach; ?>
 </div>
+
+<script>
+  function cari(param) {
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("body-card").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "<?php echo base_url(); ?>Home/isi/" + param, true);
+    xhttp.send();
+  }
+</script>
