@@ -105,6 +105,31 @@
   <script>
     AOS.init();
   </script>
+  <!-- format rp -->
+  <script>
+    function formatRupiah(val) {
+      var sign = 1;
+      if (val < 0) {
+        sign = -1;
+        val = -val;
+      }
+      let num = val.toString().includes('.') ? val.toString().split('.')[0] : val.toString();
+      let len = num.toString().length;
+      let result = '';
+      let count = 1;
+      for (let i = len - 1; i >= 0; i--) {
+        result = num.toString()[i] + result;
+        if (count % 3 === 0 && count !== 0 && i !== 0) {
+          result = ',' + result;
+        }
+        count++;
+      }
+      if (val.toString().includes('.')) {
+        result = result + '.' + val.toString().split('.')[1];
+      }
+      return sign < 0 ? '-' + result : result;
+    }
+  </script>
 </body>
 
 </html>

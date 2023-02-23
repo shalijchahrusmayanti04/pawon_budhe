@@ -31,7 +31,7 @@ class Home extends CI_Controller
                 <h5 class="card-title" title="<?= $m->nama_menu; ?>"><?= mb_strimwidth($m->nama_menu, 0, 21, "..."); ?></h5>
                 <p><?= $m->nama_kategori; ?></p>
                 <div class="h3">
-                  <span style="width: 100%;" class="badge text-bg-warning">Rp. <?= number_format($m->harga_menu); ?></span>
+                  <p style="width: 100%;" class="badge text-bg-warning">Rp. <span id="harga<?= $no; ?>" name="harga[]"><?= number_format($m->harga_menu); ?></span></p>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@ class Home extends CI_Controller
               <div class="col-8">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Qty</span>
-                  <input type="text" name="qty[]" id="qty<?= $no; ?>" class="form-control text-end" value="1" min="1">
+                  <input type="text" name="qty[]" id="qty<?= $no; ?>" class="form-control text-end" value="1" min="1" onkeyup="u_qty('<?= $no; ?>', '<?= $m->harga_menu; ?>')">
                 </div>
               </div>
               <div class="col-4">
@@ -49,6 +49,7 @@ class Home extends CI_Controller
           </div>
         </div>
       </div>
-<?php endforeach;
+<?php $no++;
+    endforeach;
   }
 }

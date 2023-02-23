@@ -10,7 +10,7 @@
               <h5 class="card-title" title="<?= $m->nama_menu; ?>"><?= mb_strimwidth($m->nama_menu, 0, 21, "..."); ?></h5>
               <p><?= $m->nama_kategori; ?></p>
               <div class="h3">
-                <span style="width: 100%;" class="badge text-bg-warning">Rp. <?= number_format($m->harga_menu); ?></span>
+                <p style="width: 100%;" class="badge text-bg-warning">Rp. <span id="harga<?= $no; ?>" name="harga[]"><?= number_format($m->harga_menu); ?></span></p>
               </div>
             </div>
           </div>
@@ -18,7 +18,7 @@
             <div class="col-8">
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Qty</span>
-                <input type="text" name="qty[]" id="qty<?= $no; ?>" class="form-control text-end" value="1" min="1">
+                <input type="text" name="qty[]" id="qty<?= $no; ?>" class="form-control text-end" value="1" min="1" onkeyup="u_qty('<?= $no; ?>', '<?= $m->harga_menu; ?>')">
               </div>
             </div>
             <div class="col-4">
@@ -43,5 +43,19 @@
     };
     xhttp.open("GET", "<?php echo base_url(); ?>Home/isi/" + param, true);
     xhttp.send();
+  }
+
+  function u_qty(id, harga) {
+    var qtyx = $("#qty" + id).val();
+    if (qtyx == '') {
+      qty = 0;
+      $("#btnpesan" + id).attr("disabled", true);
+    } else {
+      qty = Number(parseInt(qtyx.replaceAll(',', '')));
+      $("#btnpesan" + id).attr("disabled", false);
+    }
+    $("#qty" + id).val(formatRupiah(qty));
+    var new_harga = qty * harga;
+    $("#harga" + id).text(formatRupiah(new_harga));
   }
 </script>
