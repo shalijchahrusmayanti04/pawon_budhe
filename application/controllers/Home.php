@@ -43,7 +43,7 @@ class Home extends CI_Controller
                 </div>
               </div>
               <div class="col-4">
-                <button type="button" class="btn btn-danger text-center" style="width: 100%;" id="btnpesan<?= $no; ?>" title="Pesan <?= $m->nama_menu ?>" onclick="pesanin('<?= $no; ?>', '<?= $m->kode_menu; ?>', '<?= $m->nama_menu; ?>')"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button type="button" class="btn btn-danger text-center" style="width: 100%;" id="btnpesan<?= $no; ?>" title="Pesan <?= $m->nama_menu ?>" onclick="pesanin('<?= $no; ?>', '<?= $m->kode_menu; ?>', '<?= $m->harga_menu; ?>')"><i class="fa-solid fa-cart-shopping"></i></button>
               </div>
             </div>
           </div>

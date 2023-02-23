@@ -90,7 +90,7 @@
       </a>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Cari..." onkeyup="cari(this.value)" autofocus>
-        <button type="button" class="btn btn-dark"><i class="fa-solid fa-bag-shopping"></i></button>
+        <button type="button" class="btn btn-dark position-relative" onclick="keranjang()"><i class="fa-solid fa-bag-shopping"></i><sup id="jmlpesanan"></sup></button>
       </form>
     </div>
   </nav>
