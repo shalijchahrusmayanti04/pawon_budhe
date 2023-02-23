@@ -41,10 +41,26 @@
       </div>
       <div class="modal-body">
         <form method="POST" id="form-pesan">
-          <div class="table-responsive">
-            <table id="table" class="table table-striped table-hover">
-              <tbody></tbody>
-            </table>
+          <div class="row mb-3">
+            <div class="col-1">Nomor Kursi</div>
+            <div class="col-1">
+              <select name="kursi" id="kursi" class="form-control text-center">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table id="table" class="table table-striped table-hover">
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -89,7 +105,11 @@
     var qty = Number(parseInt(qtyx.replaceAll(',', '')));
     sessionStorage.setItem("kode" + id, kode);
     sessionStorage.setItem("qty" + id, qty);
-    var cls = 1;
+    if (sessionStorage.getItem('notif') < 1) {
+      var cls = 1;
+    } else {
+      var cls = Number(sessionStorage.getItem('notif')) + 1;
+    }
     sessionStorage.setItem("notif", cls);
     var clss = sessionStorage.getItem('notif');
     if (clss > 0) {
@@ -97,36 +117,23 @@
     }
   }
 
-  var idrow = 2;
-  var rowCount;
-  var arr = [1];
-
-  function tambah() {
-    var table = document.getElementById('table');
-    rowCount = table.rows.length;
-    arr.push(idrow);
-    var x = document.getElementById('table').insertRow(rowCount);
-    var td1 = x.insertCell(0);
-    var td2 = x.insertCell(1);
-    var td3 = x.insertCell(2);
-    var td4 = x.insertCell(3);
-    var td5 = x.insertCell(4);
-    td1.innerHTML = "<button type='button' onclick=hapusBaris(" + idrow + ") class='btn red'><i class='fa fa-trash-o'></i></button>";
-    td2.innerHTML = "<select name='cabang[]' id='cabang" + idrow + "' class='select2_el_cabang_all form-control input-largex'></select>";
-    td3.innerHTML = "<select name='keltarif[]' id='keltarif" + idrow + "' class='select2_el_penjamin form-control input-largex'></select>";
-    td4.innerHTML = "<input name='jasars[]' id='jasars" + idrow + "' onchange='totallineTarif(" + idrow + ")' value='0' min='0' type='text' class='form-control rightJustified'>";
-    td5.innerHTML = "<input name='jasadr[]' id='jasadr" + idrow + "' onchange='totallineTarif(" + idrow + ")' value='0' min='0' type='text' class='form-control rightJustified'>";
-    idrow++;
-  }
-
   function keranjang() {
-    // const sm = sessionStorage.getItem("kode");
-    let kode = sessionStorage.getItem("kode1");
-    // var jml = sm.length;
-    alert(kode)
-    // alert(kode);
-    // $("#modal_pesan").modal("show");
-    // tambah();
+    $("#modal_pesan").modal("show");
+    var jml = Number(sessionStorage.getItem('notif'));
+    for (i = 1; i <= jml; i++) {
+      var kode_menu = sessionStorage.getItem("kode" + i);
+      var qty = sessionStorage.getItem("qty" + i);
+      $.ajax({
+        url: "<?= site_url('Home/getdata/') ?>" + kode_menu,
+        type: "POST",
+        dataType: "JSON",
+        success: function(data) {
+          // console.log(data)
+          var table = $("#table");
+          table.append("<tr><td><button type='button' onclick=hapus(" + i + ") class='btn btn-danger'><i class='fa-solid fa-ban'></i></button></td><td><input type='hidden' class='form-control' id='kode" + i + "' value='" + data.kode_menu + "'><input type='text' class='form-control' id='nama" + i + "' value='" + data.nama_menu + "'></td><td><input type='text' class='form-control text-end' id='harga" + i + "' value='" + formatRupiah(data.harga_menu) + "'></td><td><input type='text' class='form-control text-end' id='qty" + i + "' value='" + qty + "'></td><td><input type='text' class='form-control text-end' id='subtotal" + i + "' value='" + formatRupiah(qty * data.harga_menu) + "'></td></tr>");
+        }
+      });
+    }
   }
 
   $(document).ready(function() {
@@ -134,6 +141,5 @@
     if (clss > 0) {
       $("#jmlpesanan").addClass("position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle")
     }
-    // $("#modal_pesan").modal("show");
   });
 </script>

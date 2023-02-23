@@ -52,4 +52,10 @@ class Home extends CI_Controller
 <?php $no++;
     endforeach;
   }
+
+  public function getdata($kode)
+  {
+    $data = $this->db->query("SELECT * FROM menu WHERE kode_menu = '$kode'")->row();
+    echo json_encode($data);
+  }
 }
