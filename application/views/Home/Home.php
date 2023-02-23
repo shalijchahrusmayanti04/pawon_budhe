@@ -40,7 +40,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form method="POST" id="form-pesan">
+          <div class="table-responsive">
+            <table id="table" class="table table-striped table-hover">
+              <tbody></tbody>
+            </table>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -76,15 +82,58 @@
     var new_harga = qty * harga;
     $("#harga" + id).text(formatRupiah(new_harga));
   }
+  // sessionStorage.clear();
 
   function pesanin(id, kode, harga) {
     var qtyx = $("#qty" + id).val();
     var qty = Number(parseInt(qtyx.replaceAll(',', '')));
-    $("#jmlpesanan").addClass("position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle");
-    $("#jmlpesanan").text(qtyx);
+    sessionStorage.setItem("kode" + id, kode);
+    sessionStorage.setItem("qty" + id, qty);
+    var cls = 1;
+    sessionStorage.setItem("notif", cls);
+    var clss = sessionStorage.getItem('notif');
+    if (clss > 0) {
+      $("#jmlpesanan").addClass("position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle")
+    }
+  }
+
+  var idrow = 2;
+  var rowCount;
+  var arr = [1];
+
+  function tambah() {
+    var table = document.getElementById('table');
+    rowCount = table.rows.length;
+    arr.push(idrow);
+    var x = document.getElementById('table').insertRow(rowCount);
+    var td1 = x.insertCell(0);
+    var td2 = x.insertCell(1);
+    var td3 = x.insertCell(2);
+    var td4 = x.insertCell(3);
+    var td5 = x.insertCell(4);
+    td1.innerHTML = "<button type='button' onclick=hapusBaris(" + idrow + ") class='btn red'><i class='fa fa-trash-o'></i></button>";
+    td2.innerHTML = "<select name='cabang[]' id='cabang" + idrow + "' class='select2_el_cabang_all form-control input-largex'></select>";
+    td3.innerHTML = "<select name='keltarif[]' id='keltarif" + idrow + "' class='select2_el_penjamin form-control input-largex'></select>";
+    td4.innerHTML = "<input name='jasars[]' id='jasars" + idrow + "' onchange='totallineTarif(" + idrow + ")' value='0' min='0' type='text' class='form-control rightJustified'>";
+    td5.innerHTML = "<input name='jasadr[]' id='jasadr" + idrow + "' onchange='totallineTarif(" + idrow + ")' value='0' min='0' type='text' class='form-control rightJustified'>";
+    idrow++;
   }
 
   function keranjang() {
-    $("#modal_pesan").modal("show");
+    // const sm = sessionStorage.getItem("kode");
+    let kode = sessionStorage.getItem("kode1");
+    // var jml = sm.length;
+    alert(kode)
+    // alert(kode);
+    // $("#modal_pesan").modal("show");
+    // tambah();
   }
+
+  $(document).ready(function() {
+    var clss = sessionStorage.getItem('notif');
+    if (clss > 0) {
+      $("#jmlpesanan").addClass("position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle")
+    }
+    // $("#modal_pesan").modal("show");
+  });
 </script>
