@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Feb 2023 pada 19.35
+-- Waktu pembuatan: 24 Feb 2023 pada 13.11
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -95,7 +95,7 @@ ALTER TABLE `kategori`
 -- Indeks untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  ADD PRIMARY KEY (`kode_menu`);
+  ADD PRIMARY KEY (`kode_menu`) USING BTREE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

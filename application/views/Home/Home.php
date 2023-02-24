@@ -121,6 +121,7 @@
     $("#modal_pesan").modal("show");
     var jml = Number(sessionStorage.getItem('notif'));
     for (i = 1; i <= jml; i++) {
+      // if (i < jml) {
       var kode_menu = sessionStorage.getItem("kode" + i);
       var qty = sessionStorage.getItem("qty" + i);
       $.ajax({
@@ -133,6 +134,7 @@
           table.append("<tr><td><button type='button' onclick=hapus(" + i + ") class='btn btn-danger'><i class='fa-solid fa-ban'></i></button></td><td><input type='hidden' class='form-control' id='kode" + i + "' value='" + data.kode_menu + "'><input type='text' class='form-control' id='nama" + i + "' value='" + data.nama_menu + "'></td><td><input type='text' class='form-control text-end' id='harga" + i + "' value='" + formatRupiah(data.harga_menu) + "'></td><td><input type='text' class='form-control text-end' id='qty" + i + "' value='" + qty + "'></td><td><input type='text' class='form-control text-end' id='subtotal" + i + "' value='" + formatRupiah(qty * data.harga_menu) + "'></td></tr>");
         }
       });
+      // }
     }
   }
 
