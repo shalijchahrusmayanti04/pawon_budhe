@@ -117,7 +117,7 @@
           } else {
             let timerInterval
             Swal.fire({
-              title: 'PROSES MASUK SISTE<',
+              title: 'PROSES MASUK SISTEM',
               html: 'Tunggu beberapa saat!',
               timer: 1000,
               timerProgressBar: true,
