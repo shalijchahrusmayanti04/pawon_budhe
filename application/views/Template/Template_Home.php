@@ -91,11 +91,11 @@
       <div class="row justify-content-center">
         <div class="col">
           <form class="d-flex" role="search">
-            <button type="button" class="btn btn-dark position-relative" style="margin-right: 10px;" onclick="keranjang()"><i class="fa-solid fa-bag-shopping"></i><sup id="jmlpesanan"></sup></button>
+            <button type="button" class="btn btn-dark position-relative" style="margin-right: 10px;" onclick="keranjang()" title="Keranjang"><i class="fa-solid fa-bag-shopping"></i><sup id="jmlpesanan"></sup></button>
             <input class="form-control me-2" type="search" placeholder="Cari..." onkeyup="cari(this.value)" autofocus>
             <div class="dropdown">
               <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-user"></i> <?= $user->username; ?>
+                <img src="<?= base_url('assets/img/user/') . $user->gambar; ?>" style="width: 20px; height: 50%; border-radius: 50%; background-repeat: no-repeat; background-position: center; background-size: cover;"> <?= $user->username; ?>
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Profil</a></li>

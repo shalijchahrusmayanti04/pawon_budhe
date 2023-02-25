@@ -74,15 +74,27 @@
 
 <script>
   function cari(param) {
-    xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("body-card").innerHTML = this.responseText;
-        AOS.init();
-      }
-    };
-    xhttp.open("GET", "<?php echo base_url(); ?>Home/isi/" + param, true);
-    xhttp.send();
+    if (param == '' || param == null) {
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("body-card").innerHTML = this.responseText;
+          AOS.init();
+        }
+      };
+      xhttp.open("GET", "<?php echo base_url(); ?>Home/isi2/", true);
+      xhttp.send();
+    } else {
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("body-card").innerHTML = this.responseText;
+          AOS.init();
+        }
+      };
+      xhttp.open("GET", "<?php echo base_url(); ?>Home/isi/" + param, true);
+      xhttp.send();
+    }
   }
 
   function u_qty(id, harga) {
