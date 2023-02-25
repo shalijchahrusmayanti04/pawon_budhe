@@ -90,4 +90,14 @@ class Auth extends CI_Controller
       echo json_encode(["status" => 0]);
     }
   }
+
+  public function keluar($username)
+  {
+    $cek = $this->session->sess_destroy();
+    if ($cek) {
+      echo json_encode(["status" => 1]);
+    } else {
+      echo json_encode(["status" => 0]);
+    }
+  }
 }

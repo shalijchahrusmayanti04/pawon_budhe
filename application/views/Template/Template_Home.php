@@ -88,10 +88,24 @@
       <a class="navbar-brand">
         <img src="<?= base_url('assets/img/logo.jpeg'); ?>" style="border-radius: 50%; width: 50px;">
       </a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Cari..." onkeyup="cari(this.value)" autofocus>
-        <button type="button" class="btn btn-dark position-relative" onclick="keranjang()"><i class="fa-solid fa-bag-shopping"></i><sup id="jmlpesanan"></sup></button>
-      </form>
+      <div class="row justify-content-center">
+        <div class="col">
+          <form class="d-flex" role="search">
+            <button type="button" class="btn btn-dark position-relative" style="margin-right: 10px;" onclick="keranjang()"><i class="fa-solid fa-bag-shopping"></i><sup id="jmlpesanan"></sup></button>
+            <input class="form-control me-2" type="search" placeholder="Cari..." onkeyup="cari(this.value)" autofocus>
+            <div class="dropdown">
+              <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user"></i> <?= $user->username; ?>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="#">Ubah Password</a></li>
+                <li><a class="dropdown-item" type="button" onclick="keluar()">Keluar</a></li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -128,6 +142,36 @@
         result = result + '.' + val.toString().split('.')[1];
       }
       return sign < 0 ? '-' + result : result;
+    }
+
+    function keluar() {
+      var username = '<?= $user->username; ?>';
+      Swal.fire({
+        title: 'KELUAR',
+        text: "Yakin ingin keluar dari sistem?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, keluar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "<?= site_url('Auth/keluar/') ?>" + username,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data) {
+              Swal.fire({
+                icon: 'success',
+                title: 'USER ' + username.toUpperCase(),
+                text: 'Berhasil keluar!',
+              }).then((value) => {
+                location.href = "<?= site_url('Auth') ?>";
+              })
+            }
+          });
+        }
+      })
     }
   </script>
 </body>
