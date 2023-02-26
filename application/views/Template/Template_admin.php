@@ -18,6 +18,10 @@
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
+  <!-- select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <!-- aos animation -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -28,6 +32,20 @@
 </head>
 
 <body>
+  <style>
+    .select2-selection__rendered {
+      line-height: 31px !important;
+    }
+
+    .select2-container .select2-selection--single {
+      height: 37px !important;
+    }
+
+    .select2-selection__arrow {
+      height: 37px !important;
+    }
+  </style>
+
   <style>
     /* For mobile phones: */
     [class*="col-"] {
@@ -115,7 +133,7 @@
             <?php endif; ?>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<?= site_url('Master/kategori'); ?>">Kategori</a></li>
-              <li><a class="dropdown-item" href="#">Menu</a></li>
+              <li><a class="dropdown-item" href="<?= site_url('Master/menu'); ?>">Menu</a></li>
             </ul>
           </li>
           <li class="nav-item">
@@ -150,7 +168,12 @@
   <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
   <!-- initial aos -->
   <script>
-    AOS.init();
+    $(document).ready(function() {
+      $(".select2_all").select2({
+        allowClear: true,
+      });
+      AOS.init();
+    });
   </script>
   <!-- format rp -->
   <script>
