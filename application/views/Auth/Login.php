@@ -114,6 +114,28 @@
               title: 'PASSWORD',
               text: 'Tidak sama, silahkan masukan ulang!',
             });
+          } else if (data.status == 2) {
+            let timerInterval
+            Swal.fire({
+              title: 'PROSES MASUK SISTEM',
+              html: 'Tunggu beberapa saat!',
+              timer: 1000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft()
+                }, 100)
+              },
+              willClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                location.href = "<?= site_url('Admin') ?>";
+              }
+            })
           } else {
             let timerInterval
             Swal.fire({

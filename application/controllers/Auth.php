@@ -40,7 +40,11 @@ class Auth extends CI_Controller
         'status' => 1,
       ];
       $this->session->set_userdata($data_sess);
-      echo json_encode(["status" => 0]);
+      if ($data->id_role == 1) {
+        echo json_encode(["status" => 2]);
+      } else {
+        echo json_encode(["status" => 0]);
+      }
     } else {
       echo json_encode(["status" => 1]);
     }

@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css">
+
   <!-- bootstrap -->
   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
   <!-- jquery -->
@@ -94,14 +97,24 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+            <?php if ($this->uri->segment(1) == 'Admin') : ?>
+              <a class="nav-link active" aria-current="page" href="<?= site_url('Admin'); ?>">Beranda</a>
+            <?php else : ?>
+              <a class="nav-link" aria-current="page" href="<?= site_url('Admin'); ?>">Beranda</a>
+            <?php endif; ?>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Master
-            </a>
+            <?php if ($this->uri->segment(1) == 'Master') : ?>
+              <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Master
+              </a>
+            <?php else : ?>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Master
+              </a>
+            <?php endif; ?>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?= site_url('Kategori'); ?>">Kateogri</a></li>
+              <li><a class="dropdown-item" href="<?= site_url('Master/kategori'); ?>">Kategori</a></li>
               <li><a class="dropdown-item" href="#">Menu</a></li>
             </ul>
           </li>
@@ -127,11 +140,14 @@
   </nav>
 
   <div class="container mt-3">
-    <?= $judul; ?>
+    <?= $content; ?>
   </div>
 
   <!-- bootstrap js -->
   <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
+
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
   <!-- initial aos -->
   <script>
     AOS.init();
@@ -190,6 +206,33 @@
         }
       })
     }
+
+    $("#table-standar").DataTable({
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      "scrollCollapse": false,
+      "paging": true,
+      "oLanguage": {
+        "sEmptyTable": "<div class='text-center'>Data Kosong</div>",
+        "sInfoEmpty": "",
+        "sInfoFiltered": " - Dipilih dari _END_ data",
+        "sSearch": "Pencarian Data : ",
+        "sInfo": "Data (_START_ - _END_)",
+        "sLengthMenu": "_MENU_ Baris",
+        "sLoadingRecords": "Loading...",
+        "sProcessing": "Tunggu Sebentar... Loading...",
+        "sZeroRecords": "Tida ada data",
+        "oPaginate": {
+          "sPrevious": "Sebelumnya",
+          "sNext": "Berikutnya"
+        },
+      },
+      "aLengthMenu": [
+        [5, 15, 20, -1],
+        [5, 15, 20, "Semua"]
+      ],
+    });
   </script>
 </body>
 
